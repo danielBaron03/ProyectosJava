@@ -1,1 +1,77 @@
+import java.util.ArrayList;
+import java.util.Scanner;
 
+public class proyecto3 {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        ArrayList<gasto> gastos = new ArrayList<>();
+
+        int opcion;
+
+        do {
+            System.out.println("\n--- GESTOR DE GASTOS ---");
+            System.out.println("1. Añadir gasto");
+            System.out.println("2. Ver gastos");
+            System.out.println("3. Ver total gastado");
+            System.out.println("4. Salir");
+            System.out.print("Elige una opcion: ");
+
+            opcion = sc.nextInt();
+
+            if (opcion == 1) {
+                sc.nextLine();
+
+                System.out.print("Introduce la descripcion del gasto: ");
+                String descripcion = sc.nextLine();
+
+                System.out.print("Introduce la cantidad: ");
+                double cantidad = sc.nextDouble();
+
+                gasto nuevoGasto = new gasto(descripcion, cantidad);
+                gastos.add(nuevoGasto);
+
+                System.out.println("Gasto añadido correctamente.");
+            }
+
+            if (opcion == 2) {
+                if (gastos.isEmpty()) {
+                    System.out.println("No hay ningun registro de gastos.");
+                } else {
+                    System.out.println("Lista de gastos:");
+
+                    for (int i = 0; i < gastos.size(); i++) {
+                        gasto g = gastos.get(i);
+                        System.out.printf("%d. %s - %.2f€%n", (i + 1), g.descripción, g.cantidad);
+                    }
+                }
+            }
+
+            if (opcion == 3) {
+                if (gastos.isEmpty()) {
+                    System.out.println("No hay gastos registrados.");
+                } else {
+                    double total = 0;
+
+                    for (int i = 0; i < gastos.size(); i++) {
+                        gasto g = gastos.get(i);
+                        total = total + g.cantidad;
+                    }
+
+                    System.out.printf("Total gastado: %.2f€%n", total);
+                }
+            }
+
+            if (opcion == 4) {
+                System.out.println("Saliendo del programa...");
+            }
+
+            if (opcion < 1 || opcion > 4) {
+                System.out.println("Opcion no valida. Intenta de nuevo.");
+            }
+
+        } while (opcion != 4);
+
+        sc.close();
+    }
+}
